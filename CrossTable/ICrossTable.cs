@@ -36,7 +36,21 @@ namespace CrossTable
         /// <param name="indexContext"></param>
         /// <returns>The row contents as an <see cref="IEnumerable{TContent}"/></returns>
         IEnumerable<ContentContext<THeader, TIndex, TContent>> GetRowByIndex(TIndex indexContext);
-        
+
+        /// <summary>
+        /// Gets the content row for the given index 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>The row contents as an <see cref="IEnumerable{TContent}"</returns>
+        IEnumerable<ContentContext<THeader, TIndex, TContent>> GetRowByIndex(int index);
+
+        /// <summary>
+        /// Gets all rows
+        /// </summary>
+        /// <returns>All rows contents as an <see cref="IEnumerable{IEnumerable{TContent}}"</returns>
+        IEnumerable<IEnumerable<ContentContext<THeader, TIndex, TContent>>> GetRows();
+
+
         /// <summary>
         /// Add content by cross context
         /// </summary>

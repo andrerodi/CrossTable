@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace CrossTable
 {
@@ -36,8 +29,8 @@ namespace CrossTable
         public IEnumerable<THeader> GetHeader()
         {
             var enumerable = _contentContext
-                    .Select(x => x.HeaderContext)
-                    .Distinct();
+                .Select(x => x.HeaderContext)
+                .Distinct();
 
             if (_headerOrderByFunc is null)
             {
@@ -67,6 +60,14 @@ namespace CrossTable
         }
 
 
+        public IEnumerable<ContentContext<THeader, TIndex, TContent>> GetRowByIndex(int index)
+        {
+            var element = GetIndices().ElementAt(index);
+
+            return GetRowByIndex(element);
+        }
+
+
         public void SetHeaderOrderFunc(Func<THeader, object> orderHeaderBy)
         {
             _headerOrderByFunc = orderHeaderBy;
@@ -87,6 +88,15 @@ namespace CrossTable
             _indexOrderByFunc = null;
         }
 
+        public IEnumerable<IEnumerable<ContentContext<THeader, TIndex, TContent>>> GetRows()
+        {
+            var indices = GetIndices();
+
+            foreach (var index in indices)
+            {
+                yield return GetRowByIndex(index);
+            }
+        }
     }
 
     /// <summary>
