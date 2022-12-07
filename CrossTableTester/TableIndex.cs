@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CrossTableTester
 {
-    public sealed class TableHeader : IEquatable<TableHeader>
+    public sealed class TableIndex : IEquatable<TableIndex>
     {
-        public TableHeader(string name, int index)
+        public TableIndex(string name, int index)
         {
             Name = name;
             Index = index;
@@ -18,21 +18,20 @@ namespace CrossTableTester
         public string Name { get; }
         public int Index { get; }
 
-
-        public bool Equals(TableHeader? other)
+        public bool Equals(TableIndex? other)
         {
             if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true; 
-            if (this.Name != other.Name) return false;
-            if (this.Index != other.Index) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (Name != other.Name) return false;
+            if (Index != other.Index) return false;
 
             return true;
         }
 
         public override bool Equals(object? obj)
         {
-            if (obj is not TableHeader tableHeader) return false;
-            return Equals(tableHeader);
+            if (obj is not TableIndex tableIndex) return false;
+            return Equals(tableIndex);
         }
 
         public override int GetHashCode()
